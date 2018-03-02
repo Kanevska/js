@@ -1,7 +1,10 @@
-export function Components()
-{
-    this.render = ()=>{console.log("render Component");}
+export class Components{
+ constructor(){
 
+ }
 
-    
+    render(){
+        console.log("render Component");
+    }
+
 }

@@ -1,4 +1,7 @@
-export function AjaxSendForm(result_id,formName,url) {
+
+
+
+export function AjaxSendInformation(result_id,formName,url) {
     jQuery.ajax({
         url: url,
         type: "POST",
@@ -14,17 +17,16 @@ export function AjaxSendForm(result_id,formName,url) {
     });
 }
 
-export function AjaxGetInformation(url) {
-    console.log('from ajax')
+export function AjaxGetInformation(url, component) {
+
     $.ajax({
         type: 'GET',
         url: url,
         dataType:"json",
         success: function (response) {
-            /* render*/
+            component.render(response);
         },
         error: function (response) {
-
         }
     });
 }

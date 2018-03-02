@@ -1,12 +1,14 @@
 'use strict';
 
- import {Components} from "../components/Component";
 import {AjaxGetInformation} from "../services/Services";
+import {DepartmentForm} from "../components/departmentForm/DepartmentForm";
 
 const routes = {
 
     '/': () => {
-console.log("form /");
+        let departmentForm = new DepartmentForm();
+        AjaxGetInformation("/departments/departmentList", departmentForm);
+        // $('#root').append('<p>root</p>');
     },
     '/addDepartment': () => {
 
@@ -30,4 +32,3 @@ export function routing() {
         alert("error");
     }
 }
-
