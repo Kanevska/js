@@ -1,30 +1,30 @@
 'use strict';
 
 import {AjaxGetInformation} from "../services/Services";
+import {DepartmentList} from "../components/departmentList/DepartmentList";
 import {DepartmentForm} from "../components/departmentForm/DepartmentForm";
 
 const routes = {
-
-    '/': () => {
+    '/departmentForm': () => {
         let departmentForm = new DepartmentForm();
-        AjaxGetInformation("/departments/departmentList", departmentForm);
-        // $('#root').append('<p>root</p>');
+        departmentForm.render(null);
     },
-    '/addDepartment': () => {
-
+    '/': () => {
+        let departmentList = new DepartmentList();
+        AjaxGetInformation("/departments/departmentList", departmentList);
     }
+
 
 };
 
-
 export function routing() {
-    console.log("from routing");
+    console.log(window.location.pathname);
     const result = Object.keys(routes).find(str => {
         const pathname = window.location.pathname;
         if (!pathname) {
-            return false;
+            return true;
         }
-        routes[str]();
+        routes[pathname]();
         return true;
     });
 
@@ -32,3 +32,4 @@ export function routing() {
         alert("error");
     }
 }
+
