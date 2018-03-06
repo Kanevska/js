@@ -14,12 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import service.DepartmentService;
 import service.EmployeeService;
+import util.Converter;
 import util.DateFormater;
 
 import java.sql.Date;
@@ -30,6 +28,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
+
+    private Converter converter = new Converter();
     private static final Logger LOGGER = Logger.getLogger(EmployeeController.class);
 
     @Autowired
@@ -59,6 +59,16 @@ public class EmployeeController {
     }
 
 
+    @GetMapping(value = "/editEmployee/{id}", produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    String editDepartment(@PathVariable("id") Integer id) {
+        Employee employee = employeeService.getEmployeeById(id);
+        List<Department> departments = this.departmentService.getAllDepartments();
+        String json = converter.employeeToJSON(employee);
+        json += ","+converter.departmentListToJSON(departments);
+        return json;
+    }
+
     @GetMapping(value = "deleteEmployee")
     public String deleteEmployee(Integer id, Model model) {
 
@@ -69,20 +79,22 @@ public class EmployeeController {
             try {
                 employeeService.deleteEmployeeById(id);
             } catch (Exception e) {
-                LOGGER.error("Employee delete error",e);
+                LOGGER.error("Employee delete error", e);
             }
         }
-        employeeList(departmentId, model);
+        //employeeList(departmentId, model);
         return ("employeeList?id=" + departmentId);
     }
 
-    @RequestMapping(value = "employeeList")
-    public String employeeList(Integer id, Model model) {
-        Department department = departmentService.getDepartmentById(id);
+
+    @GetMapping(value = "/employeeList/{id}", produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    String showHomePage(@PathVariable("id") Integer id) {
+        // Department department = departmentService.getDepartmentById(id);
         List<Employee> employees = employeeService.getEmployeeListByDepartmentId(id);
-        model.addAttribute("employees", employees);
-        model.addAttribute("dep", department);
-        return Path.EMPLOYEE_LIST;
+        // List<Department> departments = this.departmentService.getAllDepartments();
+        String json = converter.employeeListToJSON(employees);
+        return json;
     }
 
     @PostMapping(value = "addEmployee")
@@ -97,7 +109,7 @@ public class EmployeeController {
         try {
             employeeService.updateInsertEmployee(employeeFormBean);
             Integer departmentId = employeeFormBean.getDepartmentId();
-            employeeList(departmentId, model);
+            // employeeList(departmentId, model);
             return "employeeList?id=" + departmentId;
         } catch (ValidationException e) {
             Map<String, List<String>> errorList = e.getErrotMap();

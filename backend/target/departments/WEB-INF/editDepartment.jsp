@@ -11,7 +11,7 @@
 <body>
 
 <h3>ADD/UPDATE DEPARTMENT</h3>
-<a class="home" href="/"<span>&#x2302;</span></a>
+<a class="home" href="/"><span>&#x2302;</span></a>
 
 
 <div class="departmentBock">

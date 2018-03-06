@@ -4,7 +4,7 @@ export class Components{
  }
 
     render(){
-        console.log("render Component");
+
     }
 
 }

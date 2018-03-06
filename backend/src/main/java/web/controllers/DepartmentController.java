@@ -45,6 +45,8 @@ public class DepartmentController {
         return Path.EDIT_DEPARTMENT;
     }
 
+
+
     @GetMapping(value = "/editDepartment/{id}",produces = "application/json; charset=utf-8")
     public @ResponseBody String editDepartment(@PathVariable("id") Integer id) {
         Department department = departmentService.getDepartmentById(id);
