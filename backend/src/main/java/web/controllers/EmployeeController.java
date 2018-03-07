@@ -65,7 +65,7 @@ public class EmployeeController {
         Employee employee = employeeService.getEmployeeById(id);
         List<Department> departments = this.departmentService.getAllDepartments();
         String json = converter.employeeToJSON(employee);
-        json += ","+converter.departmentListToJSON(departments);
+        json = json.substring(0,json.length()-1)+","+converter.departmentListToJSON(departments).substring(1);
         return json;
     }
 

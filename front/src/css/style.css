@@ -205,3 +205,7 @@ td{
     margin-left: 49.8%;
     line-height: 50px;
 }
+
+select{
+    clear: both;
+}

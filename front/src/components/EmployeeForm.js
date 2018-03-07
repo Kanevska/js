@@ -14,37 +14,40 @@ export class EmployeeForm extends Components {
             <form id="employeeForm">
             
              <input class="fields" type="text" name="fullName"
-             value="${(object != undefined) ? object.departmentName : ''}"
+             value="${(object !== undefined) ? object.fullName : ''}"
                placeholder="Enter your name">
                
                 <input class="fields" type="text" name="email"
-               value="<c:out value="${param['email'] eq null ? employee.email : param['email']}"/>"
+               value="${(object !== undefined) ? object.email : ''}"
                placeholder="Enter your email">
                
                
                  <input class="fields" type="date" name="birthday"
 
-               value="${param['birthday'] eq null ? employee.birthday : param['birthday']}"
+               value="${(object !== undefined) ? object.birthday : ''}"
                placeholder="Enter your birthday">
                
                
                <input class="fields" type="text" name="phoneNumber"
-               value="<c:out value="${param['phoneNumber'] eq null ? employee.phoneNumber : param['phoneNumber']}"/>"
+               value="${(object !== undefined) ? object.phoneNumber : ''}"
                placeholder="Enter your phone number">
                
                
                 <input class="fields" type="text" name="salary"
-               value="<c:out value="${param['salary'] eq null ? employee.salary : param['salary']}"/>"
-               placeholder="Enter salary">
-            <input class="fields" type="text" name="departmentName" value="${(object != undefined) ? object.departmentName : ''}" placeholder="Enter department name">
-            <input class="fields" type="text" name="description" value="${(object != undefined) ? object.description : ''}" placeholder="Enter department description">
-            <input class="fields" type="text" name="address" value="${(object != undefined) ? object.address : ''}" placeholder="Enter department address">
-           
-           ${(object == undefined) ? '<input class="listButton"value="Add employee" onclick="" style="margin-left: 40%; text-align: center;">'
-            : ' <input class="listButton"value="Update employee" onclick="" style="margin-left: 40%; text-align: center;text-align: center; ">'}
-           
-            </form>
-            </div>`);
+               value="${(object !== undefined) ? object.salary : ''}"
+                placeholder="Enter salary">
+                
+                <select class="fields" id="department" name="departmentId" style="float: none;">
+${(object === undefined) ? '<input class="listButton" value="Add employee" onclick="" style="margin-left: 40%; text-align: center; ">'
+            : '<input class="listButton"value="Update employee" onclick="" style="margin-left: 40%; text-align: center; clear:both; ">'}`);
+
+        for (let i = 0; i < object["department_array"].length; i++) {
+            $('#department')
+                .append($("<option></option>")
+                    .attr("value", object["department_array"][i].id)
+                    .text(object["department_array"][i].departmentName));
+        }
+
     }
 
 }

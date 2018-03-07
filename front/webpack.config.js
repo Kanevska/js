@@ -11,7 +11,8 @@ module.exports = {
         host:'localhost',
         port:8080,
         proxy:{
-            '/departments/*':'http://localhost:8082'
+            '/departments/*':'http://localhost:8082',
+            '/employee/*': 'http://localhost:8082'
         }
     },
     module: {

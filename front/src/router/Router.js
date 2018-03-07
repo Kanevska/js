@@ -4,8 +4,22 @@ import {AjaxGetInformation} from "../services/Services";
 import {DepartmentList} from "../components/departmentList/DepartmentList";
 import {DepartmentForm} from "../components/departmentForm/DepartmentForm";
 import {EmployeeList} from "../components/EmployeeList";
+import {EmployeeForm} from "../components/EmployeeForm";
 
 const routes = {
+    '/employeeList/employeeForm[/\w+]?': () => {
+        let employeeForm = new EmployeeForm();
+        const path = window.location.pathname;
+        const res = path.match('[1-9]+');
+
+        if (res != null) {
+            AjaxGetInformation(`/employee/editEmployee/${res}`, employeeForm);
+        }
+        else {
+            employeeForm.render(null);
+        }
+
+    },
     '/employeeList[/\w+]': () => {
         let employeeList = new EmployeeList();
         const path = window.location.pathname;
@@ -56,4 +70,6 @@ export function routing() {
         alert("error");
     }
 }
-
+window.onpopstate = function() {
+    routing();
+};

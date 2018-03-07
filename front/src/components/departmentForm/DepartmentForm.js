@@ -19,7 +19,6 @@ export class DepartmentForm extends Components {
            
            ${(object==undefined)?' <input class="listButton"value="Add department" onclick="" style="margin-left: 40%; text-align: center;">'
             :' <input class="listButton"value="Update department" onclick="" style="margin-left: 40%; text-align: center;text-align: center; ">'}
-           
             </form>
             </div>`);
     }
