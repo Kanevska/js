@@ -1,6 +1,6 @@
 'use strict';
 
-import {AjaxGetInformation} from "../services/Services";
+import {getInformation } from "../services/Services";
 import {DepartmentList} from "../components/departmentList/DepartmentList";
 import {DepartmentForm} from "../components/departmentForm/DepartmentForm";
 import {EmployeeList} from "../components/EmployeeList";
@@ -13,10 +13,11 @@ const routes = {
         const res = path.match('[1-9]+');
 
         if (res != null) {
-            AjaxGetInformation(`/employee/editEmployee/${res}`, employeeForm);
+            getInformation(`/employee/editEmployee/${res}`, employeeForm);
         }
         else {
-            employeeForm.render(null);
+            console.log("front employeeForm");
+            getInformation(`/departments/departmentList`, employeeForm);
         }
 
     },
@@ -24,7 +25,7 @@ const routes = {
         let employeeList = new EmployeeList();
         const path = window.location.pathname;
         const res = path.match('[1-9]+');
-        AjaxGetInformation(`/departments/editDepartment/${res}`, employeeList);
+        getInformation(`/departments/editDepartment/${res}`, employeeList);
     },
     '/departmentForm[/\w+]?': () => {
         let departmentForm = new DepartmentForm();
@@ -32,7 +33,7 @@ const routes = {
         const res = path.match('[1-9]+');
 
         if (res != null) {
-            AjaxGetInformation(`/departments/editDepartment/${res}`, departmentForm);
+            getInformation(`/departments/editDepartment/${res}`, departmentForm);
         }
         else {
             departmentForm.render(null);
@@ -41,7 +42,7 @@ const routes = {
     },
     '/': () => {
         let departmentList = new DepartmentList();
-        AjaxGetInformation("/departments/departmentList", departmentList);
+        getInformation("/departments/departmentList", departmentList);
     }
 
 

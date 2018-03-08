@@ -1,5 +1,6 @@
 import {Components} from "./Component";
 import {routing} from "../router/Router";
+import {deleteInformation} from "../services/Services";
 
 export class EmployeeList extends Components {
 
@@ -26,7 +27,7 @@ export class EmployeeList extends Components {
             </tr>
         </table>
          <div class="buttons">
-                 <div class="deleteButton" empId = "${object["employees"][i].id}">X</div>
+                 <div class="deleteButton" empId = "${object["employees"][i].id}" onclick="onEmployeeClickFunction(this)">X</div>
                  <div class="addButton" empId = "${object["employees"][i].id}" onclick="onEmployeeClickFunction(this)">Edit</div>
                  </div>
         </div>
@@ -50,7 +51,8 @@ window.onEmployeeClickFunction = function (object) {
             break;
         }
         case "deleteButton": {
-
+            let empId = $(object).attr('empId');
+            deleteInformation(`/employee/deleteEmployee/${empId}`,'/');
             break;
         }
     }

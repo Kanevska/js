@@ -79,7 +79,7 @@
             </c:forEach>
         </ul>
 
-        <select class=fields" name="departmentId"><br>
+        <select class="fields" name="departmentId"><br>
 
 
             <c:forEach items="${departments}" var="departments">

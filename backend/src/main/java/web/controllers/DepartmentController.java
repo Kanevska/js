@@ -36,44 +36,38 @@ public class DepartmentController {
     @GetMapping(value = "/departmentList",produces = "application/json; charset=utf-8")
     public @ResponseBody String showHomePage() {
         List<Department> departments = this.departmentService.getAllDepartments();
-        String json = converter.departmentListToJSON(departments);
-        return json;
+        return converter.departmentListToJSON(departments);
     }
 
-    @GetMapping(value = "getDepartmentForm")
-    public String getDepartmentForm() {
-        return Path.EDIT_DEPARTMENT;
-    }
 
 
 
     @GetMapping(value = "/editDepartment/{id}",produces = "application/json; charset=utf-8")
     public @ResponseBody String editDepartment(@PathVariable("id") Integer id) {
         Department department = departmentService.getDepartmentById(id);
-        String json = converter.departmentToJSON(department);
-        return json;
+        return converter.departmentToJSON(department);
     }
 
-    @PostMapping(value = "addDepartment")
-    public String addDepartment(Model model, DepartmentFormBean departmentFormBean) {
+    @PostMapping(value = "/addDepartment")
+    public void addDepartment(HttpServletResponse response, DepartmentFormBean departmentFormBean) {
         try {
             departmentService.insertUpdateDepartment(departmentFormBean);
-            return Path.MAIN_PAGE;
+            response.setStatus(HttpServletResponse.SC_OK);
         } catch (ValidationException e) {
-            Map<String, List<String>> errorList = e.getErrotMap();
-            model.addAttribute("errorList", errorList);
-            return EDIT_DEPARTMENT;
+            response.setStatus(HttpServletResponse.SC_CONFLICT);//409
         }
     }
 
 
-    @GetMapping(value = "/deleteDepartment/{id}")
+    @DeleteMapping(value = "/deleteDepartment/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteDepartment(@PathVariable("id") Integer id) {
+    public void deleteDepartment(@PathVariable("id") Integer id,HttpServletResponse response) {
         try {
             departmentService.deleteDepartment(id);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } catch (Exception e) {
             LOGGER.error("Department delete error",e);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);//400
         }
     }
 }

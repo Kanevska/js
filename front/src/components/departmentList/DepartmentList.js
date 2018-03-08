@@ -1,6 +1,6 @@
 import {Components} from "../Component";
 import {routing} from "../../router/Router";
-
+import {deleteInformation} from "../../services/Services";
 
 export class DepartmentList extends Components {
 
@@ -26,7 +26,7 @@ export class DepartmentList extends Components {
                 </table>
                   
                  <div class="buttons">
-                 <div class="deleteButton" depId = "${object["department_array"][i].id}">X</div>
+                 <div class="deleteButton" depId = "${object["department_array"][i].id}" onclick="onClickFunction(this)">X</div>
                  <div class="addButton" depId = "${object["department_array"][i].id}" onclick="onClickFunction(this)">Edit</div>
                  <div class="listButton" depId = "${object["department_array"][i].id}" onclick="onClickFunction(this)">Employee list</div>
                  </div>
@@ -57,7 +57,8 @@ window.onClickFunction = function (object) {
         }
 
         case "deleteButton": {
-
+            let depId = $(object).attr('depId');
+            deleteInformation(`/departments/deleteDepartment/${depId}`,'/');
             break;
         }
     }

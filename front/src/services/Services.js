@@ -1,23 +1,25 @@
+import {routing} from "../router/Router";
 
 
-
-export function AjaxSendInformation(result_id,formName,url) {
+export function sendInformation(result_id,formName,url,endUrl) {
     jQuery.ajax({
         url: url,
         type: "POST",
         dataType: "json",
         data: jQuery("#" + formName).serialize(),
-        success: function (response) {
-
-            /* render*/
-        },
-        error: function (response) {
-            /*do something*/
+        statusCode: {
+            200: function() {
+                history.pushState({}, '',endUrl);
+                routing();
+            },
+            409: function() {
+                alert('error');
+            }
         }
     });
 }
 
-export function AjaxGetInformation(url, component) {
+export function getInformation(url, component) {
 
     $.ajax({
         type: 'GET',
@@ -27,6 +29,22 @@ export function AjaxGetInformation(url, component) {
             component.render(response);
         },
         error: function (response) {
+            alert("error");
+        }
+    });
+}
+export function deleteInformation(url,endUrl) {
+    jQuery.ajax({
+        url: url,
+        type: 'DELETE',
+        statusCode: {
+            204: function() {
+                history.pushState({}, '',endUrl);
+                routing();
+            },
+            409: function() {
+                alert('error');
+            }
         }
     });
 }
