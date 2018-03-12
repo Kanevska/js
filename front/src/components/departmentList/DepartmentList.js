@@ -1,6 +1,7 @@
-import {Components} from "../Component";
-import {routing} from "../../router/Router";
-import {deleteInformation} from "../../services/Services";
+import {Components} from "components/Component";
+import {Router} from "src/router/Router";
+import {Services} from "src/services/Services";
+import {DepartmentForm} from "../departmentForm/DepartmentForm";
 
 export class DepartmentList extends Components {
 
@@ -10,58 +11,54 @@ export class DepartmentList extends Components {
 
     render(object) {
         super.render();
-        $('#root').empty();
-        $('#root').append(`<h3> DEPARTMENTS </h3>
-<a class="home" href="/"><span>&#x2302;</span></a>
-<div class="add" style="margin-left: 50%;" onclick="onClickFunction(this)">+</div>`);
+        let root = '#root';
+        $(root).empty().append($('<h3/>').text('DEPARTMENTS'));
+        $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
+        $(root).append($('<div/>').attr('class', 'add').text('+').on('click', this.onClickFunction));
+        for (let i = 0; i < object['department_array'].length; i++) {
+            $(root).append($('<div/>').attr('class', 'blocks')
+                .append($('<table/>').attr('class', 'text')
+                    .append($('<tr/>')
+                        .append($('<td/>').append($('<p/>').attr('class','name').text(`${object['department_array'][i].departmentName}`)))
+                        .append($('<td/>').append($('<p/>').attr('class','address').text(`Address: ${ object['department_array'][i].description}`)))
+                        .append($('<td/>').append($('<p/>').attr('class','address').text(`Description: ${object['department_array'][i].address}`)))
+                    )).append($('<div/>').attr('class','buttons')
+                .append($('<div/>').attr('class','deleteButton').attr('depId',`${object['department_array'][i].id}`).on('click', this.onClickFunction).text('x'))
+                .append($('<div/>').attr('class','addButton').attr('depId',`${object['department_array'][i].id}`).on('click', this.onClickFunction).text('Edit'))
+                .append($('<div/>').attr('class','listButton').attr('depId',`${object['department_array'][i].id}`).on('click', this.onClickFunction).text('Employee list'))
+                ));
+        }
 
-        for (let i = 0; i < object["department_array"].length; i++) {
-            $('#root').append(`<div class="blocks"> 
-                <table class="text">
-                <tr>
-                <td> <p class="name">${object["department_array"][i].departmentName}</p></td>
-                <td> <p class="address"> Address: ${ object["department_array"][i].description}</p></td>
-                <td> <p class="address"> Description: ${object["department_array"][i].address}</p></td>
-                </tr> 
-                </table>
-                  
-                 <div class="buttons">
-                 <div class="deleteButton" depId = "${object["department_array"][i].id}" onclick="onClickFunction(this)">X</div>
-                 <div class="addButton" depId = "${object["department_array"][i].id}" onclick="onClickFunction(this)">Edit</div>
-                 <div class="listButton" depId = "${object["department_array"][i].id}" onclick="onClickFunction(this)">Employee list</div>
-                 </div>
-                 </div>`);
+    }
 
+    onClickFunction() {
+        const router = new Router();
+        const service = new Services();
+        switch ($(this).attr('class')) {
+            case 'add': {
+                location.hash = 'departmentForm';
+                let departmentForm = new DepartmentForm();
+                router.route(departmentForm);
+                break;
+            }
+            case 'addButton': {
+                let depId = $(this).attr('depId');
+                location.href = `#departmentForm/${depId}`;
+                router.routing();
+                break;
+            }
+            case 'listButton': {
+                let depId = $(this).attr('depId');
+                location.hash = `employeeList/${depId}`;
+                router.routing();
+                break;
+            }
+
+            case 'deleteButton': {
+                let depId = $(this).attr('depId');
+                service.deleteInformation(`/departments/deleteDepartment/${depId}`, 'departments');
+                break;
+            }
         }
     }
 }
-
-window.onClickFunction = function (object) {
-    switch ($(object).attr('class')) {
-        case "add": {
-            history.pushState({}, '', '/departmentForm');
-            routing();
-            break;
-        }
-        case "addButton": {
-            let depId = $(object).attr('depId');
-            history.pushState({}, '', `/departmentForm/${depId}`);
-            routing();
-            break;
-        }
-        case "listButton": {
-            let depId = $(object).attr('depId');
-            history.pushState({}, '', `/employeeList/${depId}`);
-            routing();
-            break;
-        }
-
-        case "deleteButton": {
-            let depId = $(object).attr('depId');
-            deleteInformation(`/departments/deleteDepartment/${depId}`,'/');
-            break;
-        }
-    }
-}
-;
-

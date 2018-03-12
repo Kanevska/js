@@ -1,63 +1,95 @@
 'use strict';
 
-import {getInformation } from "../services/Services";
-import {DepartmentList} from "../components/departmentList/DepartmentList";
-import {DepartmentForm} from "../components/departmentForm/DepartmentForm";
-import {EmployeeList} from "../components/EmployeeList";
-import {EmployeeForm} from "../components/EmployeeForm";
+import {DepartmentList} from '../components/departmentList/DepartmentList';
+import {DepartmentForm} from '../components/departmentForm/DepartmentForm';
+import {EmployeeList} from '../components/employeeList/EmployeeList';
+import {EmployeeForm} from '../components/employeeForm/EmployeeForm';
+import {Services} from "services/Services";
+
 
 const routes = {
-    '/employeeList/employeeForm[/\w+]?': () => {
+    'employeeList/employeeForm[/\w+]?': (services) => {
         let employeeForm = new EmployeeForm();
-        const path = window.location.pathname;
+        const path = window.location.hash;
         const res = path.match('[1-9]+');
 
         if (res != null) {
-            getInformation(`/employee/editEmployee/${res}`, employeeForm);
+            services.getInformation(`/employee/editEmployee/${res}`, employeeForm);
         }
         else {
-            console.log("front employeeForm");
-            getInformation(`/departments/departmentList`, employeeForm);
+            services.getInformation('/departments/departmentList', employeeForm);
         }
 
     },
-    '/employeeList[/\w+]': () => {
+    'employeeList[/\w+]': (services) => {
         let employeeList = new EmployeeList();
-        const path = window.location.pathname;
+        const path = window.location.hash;
         const res = path.match('[1-9]+');
-        getInformation(`/departments/editDepartment/${res}`, employeeList);
+        services.getInformation(`/departments/editDepartment/${res}`, employeeList);
     },
-    '/departmentForm[/\w+]?': () => {
+    'departmentForm[/\w+]?': (services) => {
         let departmentForm = new DepartmentForm();
-        const path = window.location.pathname;
+        const path = window.location.hash;
         const res = path.match('[1-9]+');
 
         if (res != null) {
-            getInformation(`/departments/editDepartment/${res}`, departmentForm);
+            services.getInformation(`/departments/editDepartment/${res}`, departmentForm);
         }
         else {
             departmentForm.render(null);
         }
 
     },
-    '/': () => {
+    'departments': (services) => {
         let departmentList = new DepartmentList();
-        getInformation("/departments/departmentList", departmentList);
+        services.getInformation('/departments/departmentList', departmentList);
     }
 
 
 };
 
+export class Router {
+
+
+    constructor() {
+    }
+    route(component){
+        component.render();
+    }
+
+    routing() {
+
+        const result = Object.keys(routes).find(() => {
+            const pathname = window.location.hash;
+            if (!pathname) {
+                return true;
+            }
+            for (let str in routes) {
+                const regexp = new RegExp(str);
+                const matches = pathname.match(regexp);
+                if (matches) {
+                    const services = new Services();
+                    routes[str](services);
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        if (!result) {
+            alert('router error');
+        }
+    }
+}
+
 export function routing() {
-    console.log(window.location.pathname);
     const result = Object.keys(routes).find(() => {
-        const pathname = window.location.pathname;
+        const pathname = window.location.hash;
         if (!pathname) {
             return true;
         }
         for (let str in routes) {
             const regexp = new RegExp(str);
-            console.log(regexp);
             const matches = pathname.match(regexp);
             if (matches) {
                 routes[str]();
@@ -68,9 +100,6 @@ export function routing() {
     });
 
     if (!result) {
-        alert("error");
+        alert('error');
     }
 }
-window.onpopstate = function() {
-    routing();
-};

@@ -22,6 +22,14 @@ module.exports = {
                 use: [ 'style-loader', 'css-loader' ]
             }
         ]
+    },resolve: {
+        alias: {
+            'router': './router/',
+            'src': '../../',
+            'components': '../',
+            'services':'../services/'
+
+        }
     },
     plugins: [
         new webpack.ProvidePlugin({

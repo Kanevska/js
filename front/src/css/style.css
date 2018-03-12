@@ -155,7 +155,7 @@ a{
     margin-left: 50%;
 }
 .add{
-    position: relative;
+    position: absolute;
     display: inline-block;
     text-align: center;
     font-family: Arial,Helvetica,FreeSans,"Liberation Sans","Nimbus Sans L",sans-serif;
@@ -177,6 +177,7 @@ a{
     border-radius: 50%;
     left: -25px;
     cursor: pointer;
+    margin-left: 50%;
 
 }
 .departmentBock{
@@ -207,9 +208,12 @@ td{
 }
 .home{
     margin-left: 49.8%;
-    line-height: 50px;
+    line-height: 150px;
 }
 
 select{
     clear: both;
+}
+input[type="button"] {
+    margin-left: 45%;
 }
