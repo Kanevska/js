@@ -1,40 +1,79 @@
 import {Components} from '../Component';
-import {routing} from '../../router/Router';
-import {deleteInformation} from '../../services/Services';
+import {Router, routing} from '../../router/Router';
+import {deleteInformation, Services} from '../../services/Services';
+import {DepartmentForm} from "../departmentForm/DepartmentForm";
+import {DepartmentList} from "../departmentList/DepartmentList";
+import {EmployeeForm} from "../employeeForm/EmployeeForm";
 
 
 export class EmployeeList extends Components {
 
-    constructor() {
+
+    constructor(depId) {
         super();
+        this.depId = depId;
     }
 
+    rendering(){
+        const router = new Router();
+        const service = new Services();
+        service.getInformation(`/departments/editDepartment/${this.depId}`,this,router)
+    }
+
+
+
+
     render(object) {
+
         super.render();
-        $('#root').empty().append(`<h3>EMPLOYEE LIST OF ${object.departmentName} DEPARTMENT</h3>
-<a class="home" href="/"><span>&#x2302;</span></a>
-<div class="add" style="margin-left: 50%;" onclick="onEmployeeClickFunction(this)">+</div>`);
+        let root = '#root';
+        $(root).empty().append($('<h3/>').text(`EMPLOYEE LIST OF ${object.departmentName} DEPARTMENT`));
+        $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
+        $(root).append($('<div/>').attr('class', 'add').text('+').on('click', this.onClickFunction));
         for (let i = 0; i < object['employees'].length; i++) {
-            $('#root').append(`
-             <div class="blocks">
-        <table class="text" style="width:70%">
-            <tr>
-                <td><p class="name">${object['employees'][i].fullName}</p></td>
-                <td><p class="address"> email: ${object['employees'][i].email}</p></td>
-                <td><p class="address">birthday: ${object['employees'][i].birthday}</p></td>
-                <td><p class="address">salary: ${object['employees'][i].phoneNumber}</p></td>
-                <td><p class="address"> number: ${object['employees'][i].salary}</p></td>
-                
-            </tr>
-        </table>
-         <div class="buttons">
-                 <div class="deleteButton" empId = "${object['employees'][i].id}" onclick="onEmployeeClickFunction(this)">X</div>
-                 <div class="addButton" empId = "${object['employees'][i].id}" onclick="onEmployeeClickFunction(this)">Edit</div>
-                 </div>
-        </div>
-            `);
+            $(root).append($('<div/>').attr('class', 'blocks')
+                .append($('<table/>').attr('class', 'text')
+                    .append($('<tr/>')
+                        .append($('<td/>').append($('<p/>').attr('class','name').text(`${object['employees'][i].fullName}`)))
+                        .append($('<td/>').append($('<p/>').attr('class','address').text(`email: ${object['employees'][i].email}`)))
+                        .append($('<td/>').append($('<p/>').attr('class','address').text(`birthday: ${object['employees'][i].birthday}`)))
+                        .append($('<td/>').append($('<p/>').attr('class','address').text(`salary: ${object['employees'][i].salary}`)))
+                        .append($('<td/>').append($('<p/>').attr('class','address').text(`number: ${object['employees'][i].phoneNumber}`)))
+                    )).append($('<div/>').attr('class','buttons')
+                    .append($('<div/>').attr('class','deleteButton').attr('empId',`${object['employees'][i].id}`).on('click', this.onClickFunction).text('x'))
+                    .append($('<div/>').attr('class','addButton').attr('empId',`${object['employees'][i].id}`).on('click', this.onClickFunction).text('Edit'))
+                ));
+        }
+
+    }
+
+    onClickFunction() {
+        const router = new Router();
+        const service = new Services();
+
+        switch ($(this).attr('class')) {
+            case 'add': {
+                let employeeForm = new EmployeeForm();
+                service.getInformation(`/departments/departmentList`,employeeForm,router);
+                router.route(employeeForm);
+                break;
+            }
+            case 'addButton': {
+                let empId = $(this).attr('empId');
+                //location.href = `#departmentForm/${depId}`;
+                let employeeForm = new EmployeeForm();
+                service.getInformation(`/employee/editEmployee/${empId}`,employeeForm,router);
+                break;
+            }
+
+            case 'deleteButton': {
+                let empId = $(this).attr('empId');
+                service.deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(empId));
+                break;
+            }
         }
     }
+
 
 }
 
@@ -53,7 +92,7 @@ window.onEmployeeClickFunction = function (object) {
         }
         case 'deleteButton': {
             let empId = $(object).attr('empId');
-            deleteInformation(`/employee/deleteEmployee/${empId}`,'/');
+            deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(empId));
             break;
         }
     }

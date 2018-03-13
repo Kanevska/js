@@ -1,10 +1,6 @@
 export class Components{
  constructor(){
-
  }
-
-    render(){
-
-    }
+    render(){}
 
 }

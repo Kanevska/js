@@ -1,4 +1,4 @@
-import {Router} from "router/Router";
-const router= new Router();
-location.hash ='departments';
-router.routing();
+import {DepartmentList} from "./components/departmentList/DepartmentList";
+
+const departmentList = new DepartmentList();
+departmentList.rendering();

@@ -2,6 +2,7 @@ import {Components} from "components/Component";
 import {Router} from "src/router/Router";
 import {Services} from "src/services/Services";
 import {DepartmentForm} from "../departmentForm/DepartmentForm";
+import {EmployeeList} from "../employeeList/EmployeeList";
 
 export class DepartmentList extends Components {
 
@@ -9,7 +10,14 @@ export class DepartmentList extends Components {
         super();
     }
 
+    rendering() {
+        const router = new Router();
+        const service = new Services();
+        service.getInformation('/departments/departmentList',this,router)
+    }
+
     render(object) {
+
         super.render();
         let root = '#root';
         $(root).empty().append($('<h3/>').text('DEPARTMENTS'));
@@ -34,9 +42,10 @@ export class DepartmentList extends Components {
     onClickFunction() {
         const router = new Router();
         const service = new Services();
+
         switch ($(this).attr('class')) {
             case 'add': {
-                location.hash = 'departmentForm';
+                //location.hash = 'departmentForm';
                 let departmentForm = new DepartmentForm();
                 router.route(departmentForm);
                 break;
@@ -44,19 +53,21 @@ export class DepartmentList extends Components {
             case 'addButton': {
                 let depId = $(this).attr('depId');
                 location.href = `#departmentForm/${depId}`;
-                router.routing();
+                let departmentForm = new DepartmentForm();
+                 service.getInformation(`/departments/editDepartment/${depId}`,departmentForm,router);
                 break;
             }
             case 'listButton': {
                 let depId = $(this).attr('depId');
                 location.hash = `employeeList/${depId}`;
-                router.routing();
+                let employeeList = new EmployeeList(depId);
+                employeeList.rendering();
                 break;
             }
 
             case 'deleteButton': {
                 let depId = $(this).attr('depId');
-                service.deleteInformation(`/departments/deleteDepartment/${depId}`, 'departments');
+                service.deleteInformation(`/departments/deleteDepartment/${depId}`, new DepartmentList());
                 break;
             }
         }

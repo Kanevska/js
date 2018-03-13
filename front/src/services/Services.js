@@ -7,7 +7,7 @@ export class Services{
         router.set(this, new Router());
     }
 
-    sendInformation(result_id,formName,url,endUrl) {
+    sendInformation(result_id,formName,url,component) {
         jQuery.ajax({
             url: url,
             type: 'POST',
@@ -15,9 +15,7 @@ export class Services{
             data: jQuery('#' + formName).serialize(),
             statusCode: {
                 200: function() {
-                    location.hash = endUrl;
-                    const r = router.get(this);
-                    r.routing();
+                    component.rendering();
                 },
                 409: function() {
                     alert('error');
@@ -26,28 +24,29 @@ export class Services{
         });
     }
 
-    getInformation(url, component) {
-
+    getInformation(url,component,router) {
+console.log(url);
         $.ajax({
             type: 'GET',
             url: url,
             dataType:'json',
             success: function (response) {
-                component.render(response);
+                router.route(component,response);
+                //component.render(response);
+
             },
             error: function () {
-                alert('error');
+                alert('getting error');
             }
         });
     }
-    deleteInformation(url,endUrl) {
+    deleteInformation(url,component) {
         jQuery.ajax({
             url: url,
             type: 'DELETE',
             statusCode: {
                 204: function() {
-                    location.hash = endUrl;
-                    router.get(this).routing();
+                    component.rendering();
                 },
                 409: function() {
                     alert('error');

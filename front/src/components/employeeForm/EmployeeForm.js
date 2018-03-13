@@ -1,5 +1,6 @@
 import {Components} from '../Component';
-import {sendInformation} from '../../services/Services';
+import {sendInformation, Services} from '../../services/Services';
+import {EmployeeList} from "../employeeList/EmployeeList";
 
 export class EmployeeForm extends Components {
 
@@ -8,51 +9,55 @@ export class EmployeeForm extends Components {
     }
 
     render(object) {
-        super.render();
-        $('#root').empty().append(`<h3>ADD/UPDATE EMPLOYEE</h3>
-            <a class="home" href="/"><span>&#x2302;</span></a>
-            <div class="blocksEmployee">
-            <form id="employeeForm">
-            ${(object.id !== undefined) ? ` <input type="hidden" name="id" value="${object.id}">` : ''}
-             <input class="fields" type="text" name="fullName"
-             value="${(object.id != undefined) ? object.fullName : ''}"
-               placeholder="Enter your name">
-               
-                <input class="fields" type="text" name="email"
-               value="${(object.id != undefined) ? object.email : ''}"
-               placeholder="Enter your email">
-               
-               
-                 <input class="fields" type="date" name="birthday"
 
-               value="${(object.id != undefined) ? object.birthday : ''}"
-               placeholder="Enter your birthday">
-               
-               
-               <input class="fields" type="text" name="phoneNumber"
-               value="${(object.id != undefined) ? object.phoneNumber : ''}"
-               placeholder="Enter your phone number">
-               
-               
-                <input class="fields" type="text" name="salary"
-               value="${(object.id != undefined) ? object.salary : ''}"
-                placeholder="Enter salary">
-                
-                <select class="fields" id="department" name="departmentId" style="float: none;">
-${(object == undefined) ? '<input class="addButton" value="Add employee" onclick="onClickEmployee(this)" style="margin-left: 40%; text-align: center; ">'
-            : '<input class="listButton" value="Update employee" onclick="onClickEmployee(this)" style="margin-left: 40%; text-align: center; clear:both; ">'}`);
+        let root = '#root';
+        let form = '#employeeForm';
+        $(root).empty().append($('<h3/>').text('ADD/UPDATE EMPLOYEE'));
+        $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
+        $(root).append($('<div/>').attr('class', 'blocksEmployee')
+            .append($('<form/>').attr('id', 'employeeForm')));
+    
+        if (object.id === undefined) {
+            $(form).append($('<input/>').attr('type', 'hidden').attr('name', 'id').val(`${object.id}`));
+        }
+        $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'fullName')
+            .val(`${(object.id != null) ? object.fullName : ''}`).attr('placeholder', 'Enter your name'));
+
+        $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'email')
+            .val(`${(object.id != null) ? object.email : ''}`).attr('placeholder', 'Enter your email'));
+
+        $(form).append($('<input/>').attr('class', 'fields').attr('type', 'date').attr('name', 'birthday')
+            .val(`${(object.id != null) ? object.birthday : ''}`));
+
+        $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'phoneNumber')
+            .val(`${(object.id != null) ? object.phoneNumber : ''}`).attr('placeholder', 'Enter your phoneNumber'));
+
+        $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'salary')
+            .val(`${(object.id != null) ? object.salary : ''}`).attr('placeholder', 'Enter your salary'));
+
+        $(form).append($('<select/>').attr('class', 'fields').attr('id', 'department').attr('name', 'departmentId')
+            .val(`${(object.id != null) ? object.salary : ''}`).attr('placeholder', 'Enter your salary'));
 
         for (let i = 0; i < object['department_array'].length; i++) {
-            $('#department')
-                .append($('<option/>')
-                    .attr('value', object['department_array'][i].id)
-                    .text(object['department_array'][i].departmentName));
+            $('#department').append($('<option/>').attr('value', object['department_array'][i].id)
+                .text(object['department_array'][i].departmentName));
         }
 
+
+        if (object.id == null) {
+            $(form).append($('<input/>').attr('class', 'addButton').attr('type', 'button').val('Add department').on('click', this.onClickFunction));
+        } else {
+            $(form).append($('<input/>').attr('depId', `${object.id}`).attr('class', 'listButton').attr('type', 'button').val('Update department')
+                .on('click', this.onClickFunction));
+        }
     }
 
+    onClickFunction() {
+        const service = new Services();
+        const depId = $('#department').val();
+        //const validator;
+        //make validation
+        service.sendInformation('', 'employeeForm', '/employee/addEmployee', new EmployeeList(depId));
+    }
 
 }
-window.onClickEmployee = function () {
-    sendInformation('','employeeForm','/employee/addEmployee','/');
-};

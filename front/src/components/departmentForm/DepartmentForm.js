@@ -1,5 +1,6 @@
 import {Components} from 'components/Component';
 import {Services} from "src/services/Services";
+import {DepartmentList} from "../departmentList/DepartmentList";
 
 export class DepartmentForm extends Components {
 
@@ -39,7 +40,7 @@ export class DepartmentForm extends Components {
         const service = new Services();
         //const validator;
         //make validation
-        service.sendInformation('', 'departmentForm', '/departments/addDepartment', 'departments');
+        service.sendInformation('', 'departmentForm', '/departments/addDepartment', new DepartmentList());
     }
 
 

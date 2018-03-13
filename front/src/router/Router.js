@@ -48,38 +48,22 @@ const routes = {
 
 };
 
+
+
 export class Router {
 
 
     constructor() {
     }
+
     route(component){
         component.render();
     }
 
-    routing() {
-
-        const result = Object.keys(routes).find(() => {
-            const pathname = window.location.hash;
-            if (!pathname) {
-                return true;
-            }
-            for (let str in routes) {
-                const regexp = new RegExp(str);
-                const matches = pathname.match(regexp);
-                if (matches) {
-                    const services = new Services();
-                    routes[str](services);
-                    return true;
-                }
-            }
-            return false;
-        });
-
-        if (!result) {
-            alert('router error');
-        }
+    route(component, object){
+        component.render(object);
     }
+
 }
 
 export function routing() {
