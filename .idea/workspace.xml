@@ -7,17 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3fa4ce2-6437-4077-99ec-6c125de6134d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/front/dist/bundle.js" afterPath="$PROJECT_DIR$/front/dist/bundle.js" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/Component.js" afterPath="$PROJECT_DIR$/front/src/components/Component.js" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/departmentForm/DepartmentForm.js" afterPath="$PROJECT_DIR$/front/src/components/departmentForm/DepartmentForm.js" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/departmentList/DepartmentList.js" afterPath="$PROJECT_DIR$/front/src/components/departmentList/DepartmentList.js" />
       <change beforePath="$PROJECT_DIR$/front/src/components/employeeForm/EmployeeForm.js" afterPath="$PROJECT_DIR$/front/src/components/employeeForm/EmployeeForm.js" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/employeeList/EmployeeList.js" afterPath="$PROJECT_DIR$/front/src/components/employeeList/EmployeeList.js" />
-      <change beforePath="$PROJECT_DIR$/front/src/main.js" afterPath="$PROJECT_DIR$/front/src/main.js" />
-      <change beforePath="$PROJECT_DIR$/front/src/router/Router.js" afterPath="$PROJECT_DIR$/front/src/router/Router.js" />
-      <change beforePath="$PROJECT_DIR$/front/src/services/Services.js" afterPath="$PROJECT_DIR$/front/src/services/Services.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -64,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/components/departmentForm/DepartmentForm.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+              <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
               </folding>
@@ -76,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -85,8 +76,8 @@
       <file leaf-file-name="EmployeeForm.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/front/src/components/employeeForm/EmployeeForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+            <state relative-caret-position="342">
+              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -98,7 +89,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/components/employeeList/EmployeeList.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="919">
-              <caret line="57" column="43" lean-forward="true" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
+              <caret line="57" column="43" lean-forward="false" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -110,7 +101,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/components/Component.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
-              <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+              <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -130,7 +121,7 @@
         <entry file="file://$PROJECT_DIR$/front/src/components/departmentList/DepartmentList.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="576">
-              <caret line="56" column="102" lean-forward="true" selection-start-line="56" selection-start-column="102" selection-end-line="56" selection-end-column="102" />
+              <caret line="56" column="102" lean-forward="false" selection-start-line="56" selection-start-column="102" selection-end-line="56" selection-end-column="102" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
                 <marker date="1520953140978" expanded="true" signature="646:2146" ph="..." />
@@ -659,12 +650,12 @@
       <workItem from="1520412448821" duration="25478000" />
       <workItem from="1520496322806" duration="41000" />
       <workItem from="1520841157175" duration="20000" />
-      <workItem from="1520928619747" duration="28750000" />
+      <workItem from="1520928619747" duration="29773000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212140000" />
+    <option name="totallyTimeSpent" value="213163000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -677,7 +668,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="37" width="1853" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5041505" order="7" side_tool="true" content_ui="tabs" />
@@ -699,7 +689,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.516129" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23248054" sideWeight="0.49584946" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23248054" sideWeight="0.49584946" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24958494" sideWeight="0.50388455" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15329275" sideWeight="0.49331552" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
@@ -964,7 +954,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/components/departmentForm/DepartmentForm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="10" column="20" lean-forward="true" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
+          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
           </folding>
@@ -974,7 +964,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -982,7 +972,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/components/employeeList/EmployeeList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="919">
-          <caret line="57" column="43" lean-forward="true" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
+          <caret line="57" column="43" lean-forward="false" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
@@ -992,7 +982,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/components/Component.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
-          <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
+          <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1008,7 +998,7 @@
     <entry file="file://$PROJECT_DIR$/front/src/components/departmentList/DepartmentList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
-          <caret line="56" column="102" lean-forward="true" selection-start-line="56" selection-start-column="102" selection-end-line="56" selection-end-column="102" />
+          <caret line="56" column="102" lean-forward="false" selection-start-line="56" selection-start-column="102" selection-end-line="56" selection-end-column="102" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
             <marker date="1520953140978" expanded="true" signature="646:2146" ph="..." />
@@ -1018,8 +1008,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/front/src/components/employeeForm/EmployeeForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="18" column="4" lean-forward="false" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        <state relative-caret-position="342">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
