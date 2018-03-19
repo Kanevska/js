@@ -1,6 +1,8 @@
 import {Components} from 'components/Component';
 import {Services} from "src/services/Services";
 import {DepartmentList} from "../departmentList/DepartmentList";
+import {Validator} from "../../validation/Validator";
+
 
 export class DepartmentForm extends Components {
 
@@ -15,7 +17,7 @@ export class DepartmentForm extends Components {
         $(root).empty().append($('<h3/>').text('DEPARTMENTS'));
         $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
         $(root).append($('<div/>').attr('class', 'departmentBock')
-            .append($('<form/>').attr('id', 'departmentForm')));
+            .append($('<form/>').attr('name', 'departmentForm').attr('id', 'departmentForm')));
         if (object != null) {
             $(form).append($('<input/>').attr('type', 'hidden').attr('name', 'id').val(`${object.id}`));
         }
@@ -28,19 +30,22 @@ export class DepartmentForm extends Components {
         $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'address')
             .val(`${(object != null) ? object.address : ''}`).attr('placeholder', 'Enter department address'));
         if (object == null) {
-            $(form).append($('<input/>').attr('class', 'addButton').attr('type', 'button').val('Add department').on('click', this.onClickFunction));
+            $(form).append($('<input/>').attr('class', 'addButton').attr('type', 'button').val('Add department').on('click', this.save));
         } else {
             $(form).append($('<input/>').attr('depId', `${object.id}`).attr('class', 'listButton').attr('type', 'button').val('Update department')
-                .on('click', this.onClickFunction));
+                .on('click', this.save));
         }
 
     }
 
-    onClickFunction() {
+    save() {
         const service = new Services();
-        //const validator;
-        //make validation
-        service.sendInformation('', 'departmentForm', '/departments/addDepartment', new DepartmentList());
+        const validator = new Validator();
+        if (validator.departmentValidate()) {
+            service.sendInformation('', 'departmentForm', '/departments/addDepartment', new DepartmentList());
+        }
+
+
     }
 
 

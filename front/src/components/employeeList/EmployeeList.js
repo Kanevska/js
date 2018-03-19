@@ -40,7 +40,7 @@ export class EmployeeList extends Components {
                         .append($('<td/>').append($('<p/>').attr('class','address').text(`salary: ${object['employees'][i].salary}`)))
                         .append($('<td/>').append($('<p/>').attr('class','address').text(`number: ${object['employees'][i].phoneNumber}`)))
                     )).append($('<div/>').attr('class','buttons')
-                    .append($('<div/>').attr('class','deleteButton').attr('empId',`${object['employees'][i].id}`).on('click', this.onClickFunction).text('x'))
+                    .append($('<div/>').attr('class','deleteButton').attr('depId',`${object['employees'][i].departmentId}`).attr('empId',`${object['employees'][i].id}`).on('click', this.onClickFunction).text('x'))
                     .append($('<div/>').attr('class','addButton').attr('empId',`${object['employees'][i].id}`).on('click', this.onClickFunction).text('Edit'))
                 ));
         }
@@ -68,32 +68,10 @@ export class EmployeeList extends Components {
 
             case 'deleteButton': {
                 let empId = $(this).attr('empId');
-                service.deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(empId));
+                let depId = $(this).attr('depId');
+                service.deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(depId));
                 break;
             }
         }
     }
-
-
 }
-
-window.onEmployeeClickFunction = function (object) {
-    switch ($(object).attr('class')) {
-        case 'add': {
-            location.hash ='employeeList/employeeForm';
-            routing();
-            break;
-        }
-        case 'addButton': {
-            const empId = $(object).attr('empId');
-            location.hash =`employeeList/employeeForm/${empId}`;
-            routing();
-            break;
-        }
-        case 'deleteButton': {
-            let empId = $(object).attr('empId');
-            deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(empId));
-            break;
-        }
-    }
-};

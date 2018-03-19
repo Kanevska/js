@@ -45,7 +45,6 @@ export class DepartmentList extends Components {
 
         switch ($(this).attr('class')) {
             case 'add': {
-                //location.hash = 'departmentForm';
                 let departmentForm = new DepartmentForm();
                 router.route(departmentForm);
                 break;
