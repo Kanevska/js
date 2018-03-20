@@ -1,5 +1,6 @@
 export class Components{
- constructor(){
+ constructor(name){
+     this.name = name;
  }
     render(){}
 

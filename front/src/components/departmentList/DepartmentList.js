@@ -1,13 +1,13 @@
 import {Components} from "components/Component";
 import {Router} from "src/router/Router";
 import {Services} from "src/services/Services";
-import {DepartmentForm} from "../departmentForm/DepartmentForm";
-import {EmployeeList} from "../employeeList/EmployeeList";
+import {DepartmentForm} from "components/departmentForm/DepartmentForm";
+import {EmployeeList} from "components/employeeList/EmployeeList";
 
 export class DepartmentList extends Components {
 
     constructor() {
-        super();
+        super('departmentList');
     }
 
     rendering() {

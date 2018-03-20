@@ -1,11 +1,13 @@
-import {Components} from '../Component';
-import {Services} from '../../services/Services';
-import {EmployeeList} from "../employeeList/EmployeeList";
+import {Components} from 'components/Component';
+import {Services} from 'src/services/Services';
+import {EmployeeList} from "components/employeeList/EmployeeList";
+import {Validator} from "src/validation/Validator";
 
 export class EmployeeForm extends Components {
 
-    constructor() {
-        super();
+    constructor(depId) {
+        super('employeeForm');
+        this.depId = depId;
     }
 
     render(object) {
@@ -32,6 +34,7 @@ export class EmployeeForm extends Components {
 
         $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'email')
             .val(`${(bool) ? object.email : ''}`).attr('placeholder', 'Enter your email'));
+        $(form).append($('<p/>').attr('id', 'empMail'));
 
         $(form).append($('<input/>').attr('class', 'fields').attr('type', 'date').attr('name', 'birthday')
             .val(`${(bool) ? object.birthday : ''}`));
@@ -55,19 +58,20 @@ export class EmployeeForm extends Components {
 
 
         if (!bool) {
-            $(form).append($('<input/>').attr('class', 'addButton').attr('type', 'button').val('Add department').on('click', this.onClickFunction));
+            $(form).append($('<input/>').attr('class', 'addButton').attr('type', 'button').val('Add department').on('click', this.save));
         } else {
             $(form).append($('<input/>').attr('depId', `${object.id}`).attr('class', 'listButton').attr('type', 'button').val('Update department')
-                .on('click', this.onClickFunction));
+                .on('click', this.save));
         }
     }
 
-    onClickFunction() {
+    save() {
         const service = new Services();
         const depId = $('#department').val();
-        //const validator;
-        //make validation
-        service.sendInformation('', 'employeeForm', '/employee/addEmployee', new EmployeeList(depId));
+        const validator = new Validator();
+        if (validator.employeeValidate()) {
+            service.sendInformation('#empMail', 'employeeForm', '/employee/addEmployee', new EmployeeList(depId));
+        }
     }
 
 }

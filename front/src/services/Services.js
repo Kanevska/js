@@ -14,8 +14,11 @@ export class Services{
                     component.rendering();
                 },
                 409: function() {
+                    $(result_id).append('already exists');
+                },
+                500:function() {
                     alert('error');
-                }
+                },
             }
         });
     }
@@ -26,6 +29,7 @@ export class Services{
             url: url,
             dataType:'json',
             success: function (response) {
+                if(router!=null)
                 router.route(component,response);
 
             },

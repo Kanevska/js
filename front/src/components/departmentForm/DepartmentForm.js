@@ -1,13 +1,13 @@
 import {Components} from 'components/Component';
 import {Services} from "src/services/Services";
-import {DepartmentList} from "../departmentList/DepartmentList";
-import {Validator} from "../../validation/Validator";
+import {DepartmentList} from "components/departmentList/DepartmentList";
+import {Validator} from "src/validation/Validator";
 
 
 export class DepartmentForm extends Components {
 
     constructor() {
-        super();
+        super('departmentForm');
     }
 
     render(object) {
@@ -23,7 +23,7 @@ export class DepartmentForm extends Components {
         }
         $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'departmentName')
             .val(`${(object != null) ? object.departmentName : ''}`).attr('placeholder', 'Enter department name'));
-
+        $(form).append($('<p/>').attr('id', 'depName'));
         $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'description')
             .val(`${(object != null) ? object.description : ''}`).attr('placeholder', 'Enter department description'));
 
@@ -42,7 +42,7 @@ export class DepartmentForm extends Components {
         const service = new Services();
         const validator = new Validator();
         if (validator.departmentValidate()) {
-            service.sendInformation('', 'departmentForm', '/departments/addDepartment', new DepartmentList());
+            service.sendInformation('#depName', 'departmentForm', '/departments/addDepartment', new DepartmentList());
         }
 
 
