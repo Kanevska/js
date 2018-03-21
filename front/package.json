@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack-dev-server src/main.js dist/bundle.js --watch-poll",
+    "start:dev": "webpack-dev-server src/main.js --watch-poll",
     "build:prod": "webpack -p",
     "start": "npm run start:dev"
   },

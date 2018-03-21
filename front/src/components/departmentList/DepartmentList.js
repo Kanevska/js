@@ -17,8 +17,6 @@ export class DepartmentList extends Components {
     }
 
     render(object) {
-
-        super.render();
         let root = '#root';
         $(root).empty().append($('<h3/>').text('DEPARTMENTS'));
         $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
@@ -27,16 +25,21 @@ export class DepartmentList extends Components {
             $(root).append($('<div/>').attr('class', 'blocks')
                 .append($('<table/>').attr('class', 'text')
                     .append($('<tr/>')
-                        .append($('<td/>').append($('<p/>').attr('class','name').text(`${object['department_array'][i].departmentName}`)))
-                        .append($('<td/>').append($('<p/>').attr('class','address').text(`Address: ${ object['department_array'][i].description}`)))
-                        .append($('<td/>').append($('<p/>').attr('class','address').text(`Description: ${object['department_array'][i].address}`)))
-                    )).append($('<div/>').attr('class','buttons')
-                    .append($('<div/>').attr('class','deleteButton').attr('depId',`${object['department_array'][i].id}`).on('click', this.onClickFunction).text('x'))
-                    .append($('<div/>').attr('class','addButton').attr('depId',`${object['department_array'][i].id}`).on('click', this.onClickFunction).text('Edit'))
-                    .append($('<div/>').attr('class','listButton').attr('depId',`${object['department_array'][i].id}`).on('click', this.onClickFunction).text('Employee list'))
+                        .append($('<td/>').append($('<p/>').attr('class', 'name')
+                            .text(object['department_array'][i].departmentName)))
+                        .append($('<td/>').append($('<p/>').attr('class', 'address')
+                            .text(`Address: ${ object['department_array'][i].description}`)))
+                        .append($('<td/>').append($('<p/>').attr('class', 'address')
+                            .text(`Description: ${object['department_array'][i].address}`)))
+                    )).append($('<div/>').attr('class', 'buttons')
+                    .append($('<div/>').attr('class', 'deleteButton').attr('depId', object['department_array'][i].id)
+                        .on('click', this.onClickFunction).text('x'))
+                    .append($('<div/>').attr('class', 'addButton').attr('depId', object['department_array'][i].id)
+                        .on('click', this.onClickFunction).text('Edit'))
+                    .append($('<div/>').attr('class', 'listButton').attr('depId', object['department_array'][i].id)
+                        .on('click', this.onClickFunction).text('Employee list'))
                 ));
         }
-
     }
 
     onClickFunction() {
@@ -51,7 +54,6 @@ export class DepartmentList extends Components {
         }
         case 'addButton': {
             let depId = $(this).attr('depId');
-            location.href = `#departmentForm/${depId}`;
             let departmentForm = new DepartmentForm();
             service.getInformation(`/departments/editDepartment/${depId}`,departmentForm,router);
             break;

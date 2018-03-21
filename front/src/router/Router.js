@@ -7,8 +7,8 @@ export class Router {
     }
 
     route(component, object) {
-        routes[component.name](component, object);
         component.render(object);
+        routes[component.name](component, object);
     }
 
     currentPosition() {
@@ -34,7 +34,7 @@ export class Router {
 }
 const routes = {
     'departmentForm': (component, object) => {
-        (object === null) ? location.hash = 'departmentForm' : location.hash = `departmentForm/${object.id}`;
+        (object==null) ? location.hash = 'departmentForm' : location.hash = `departmentForm/${object.id}`;
     },
     'employeeForm': (component, object) => {
         let id;
