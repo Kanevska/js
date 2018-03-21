@@ -1,31 +1,31 @@
-require("jquery-validation");
+require('jquery-validation');
 
 export class Validator {
     constructor() {
         $.validator.addMethod(
-            "regex",
+            'regex',
             function (value, element, regexp) {
                 let re = new RegExp(regexp);
                 return this.optional(element) || re.test(value);
-            }, ""
+            }, ''
         );
 
-        $.validator.addMethod("uniqueName", function (value, element) {
+        $.validator.addMethod('uniqueName', function (value) {
             $.ajax({
-                type: "POST",
-                url: "php/get_save_status.php",
-                data: "checkUsername=" + value,
-                dataType: "html",
+                type: 'POST',
+                url: 'php/get_save_status.php',
+                data: 'checkUsername=' + value,
+                dataType: 'html',
                 success: {},
                 error: {}
-            })
-        }, "such name is Already Taken");
+            });
+        }, 'such name is Already Taken');
     }
 
 
     departmentValidate() {
 
-        return $("form[name='departmentForm']").validate({
+        return $('form[name=\'departmentForm\']').validate({
             rules: {
                 departmentName: {
                     required: true,
@@ -33,7 +33,7 @@ export class Validator {
                     maxlength: 24,
                     regex: /^[A-ZА-Я][a-zа-я\d\s]+/
                 },
-                description: "required",
+                description: 'required',
                 address: {
                     required: true,
                     maxlength: 29,
@@ -61,7 +61,7 @@ export class Validator {
 
 
     employeeValidate() {
-        return $("form[name='employeeForm']").validate({
+        return $('form[name=\'employeeForm\']').validate({
             rules: {
                 fullName: {
                     required: true,

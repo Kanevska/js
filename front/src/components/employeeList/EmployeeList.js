@@ -1,7 +1,7 @@
 import {Components} from 'components/Component';
-import {Router, routing} from 'src/router/Router';
-import {deleteInformation, Services} from 'src/services/Services';
-import {EmployeeForm} from "components/employeeForm/EmployeeForm";
+import {Router} from 'src/router/Router';
+import {Services} from 'src/services/Services';
+import {EmployeeForm} from 'components/employeeForm/EmployeeForm';
 
 
 export class EmployeeList extends Components {
@@ -12,10 +12,11 @@ export class EmployeeList extends Components {
         this.depId = depId;
     }
 
+
     rendering(){
         const router = new Router();
         const service = new Services();
-        service.getInformation(`/departments/editDepartment/${this.depId}`,this,router)
+        service.getInformation(`/departments/editDepartment/${this.depId}`,this,router);
     }
 
 
@@ -50,27 +51,27 @@ export class EmployeeList extends Components {
         const service = new Services();
 
         switch ($(this).attr('class')) {
-            case 'add': {
-                let depId = $(this).attr('depId');
-                let employeeForm = new EmployeeForm(depId);
-                service.getInformation(`/departments/departmentList`,employeeForm,router);
-                router.route(employeeForm);
-                break;
-            }
-            case 'addButton': {
-                let empId = $(this).attr('empId');
-                let depId = $(this).attr('depId');
-                let employeeForm = new EmployeeForm(depId);
-                service.getInformation(`/employee/editEmployee/${empId}`,employeeForm,router);
-                break;
-            }
+        case 'add': {
+            let depId = $(this).attr('depId');
+            let employeeForm = new EmployeeForm(depId);
+            service.getInformation('/departments/departmentList',employeeForm,router);
+            router.route(employeeForm);
+            break;
+        }
+        case 'addButton': {
+            let empId = $(this).attr('empId');
+            let depId = $(this).attr('depId');
+            let employeeForm = new EmployeeForm(depId);
+            service.getInformation(`/employee/editEmployee/${empId}`,employeeForm,router);
+            break;
+        }
 
-            case 'deleteButton': {
-                let empId = $(this).attr('empId');
-                let depId = $(this).attr('depId');
-                service.deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(depId));
-                break;
-            }
+        case 'deleteButton': {
+            let empId = $(this).attr('empId');
+            let depId = $(this).attr('depId');
+            service.deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(depId));
+            break;
+        }
         }
     }
 }

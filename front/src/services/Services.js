@@ -30,7 +30,7 @@ export class Services{
             dataType:'json',
             success: function (response) {
                 if(router!=null)
-                router.route(component,response);
+                    router.route(component,response);
 
             },
             error: function () {

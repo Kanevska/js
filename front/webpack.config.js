@@ -10,6 +10,9 @@ module.exports = {
     devServer:{
         host:'localhost',
         port:8080,
+        watchOptions: {
+            aggregateTimeout: 100,
+        },
         proxy:{
             '/departments/*':'http://localhost:8082',
             '/employee/*': 'http://localhost:8082'
@@ -19,23 +22,33 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
-            }
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
+
+            },
         ]
-    },resolve: {
+    },
+    resolve: {
         alias: {
             'router': './router/',
             'src': '../../',
             'components': '../',
-            'services':'../services/'
+            'services':'../services/',
+            'util':'../util/'
 
         }
     },
     plugins: [
         new webpack.ProvidePlugin({
-            '$':'jquery',
-            $: "jquery",
-            jQuery: "jquery",
+            $: 'jquery',
+            jQuery: 'jquery',
             'window.jQuery': 'jquery',
             'window.$': 'jquery'
         })

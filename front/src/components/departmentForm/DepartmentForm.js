@@ -1,7 +1,7 @@
 import {Components} from 'components/Component';
-import {Services} from "src/services/Services";
-import {DepartmentList} from "components/departmentList/DepartmentList";
-import {Validator} from "src/validation/Validator";
+import {Services} from 'src/services/Services';
+import {DepartmentList} from 'components/departmentList/DepartmentList';
+import {Validator} from 'src/validation/Validator';
 
 
 export class DepartmentForm extends Components {
