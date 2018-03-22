@@ -20,7 +20,7 @@ export class DepartmentList extends Components {
         let root = '#root';
         $(root).empty().append($('<h3/>').text('DEPARTMENTS'));
         $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
-        $(root).append($('<div/>').attr('class', 'add').text('+').on('click', this.onClickFunction));
+        $(root).append($('<div/>').attr('class', 'add').text('+').on('click', this.add));
         for (let i = 0; i < object['department_array'].length; i++) {
             $(root).append($('<div/>').attr('class', 'blocks')
                 .append($('<table/>').attr('class', 'text')
@@ -33,43 +33,37 @@ export class DepartmentList extends Components {
                             .text(`Description: ${object['department_array'][i].address}`)))
                     )).append($('<div/>').attr('class', 'buttons')
                     .append($('<div/>').attr('class', 'deleteButton').attr('depId', object['department_array'][i].id)
-                        .on('click', this.onClickFunction).text('x'))
+                        .on('click', this.delete).text('x'))
                     .append($('<div/>').attr('class', 'addButton').attr('depId', object['department_array'][i].id)
-                        .on('click', this.onClickFunction).text('Edit'))
+                        .on('click', this.update).text('Edit'))
                     .append($('<div/>').attr('class', 'listButton').attr('depId', object['department_array'][i].id)
-                        .on('click', this.onClickFunction).text('Employee list'))
+                        .on('click', this.list).text('Employee list'))
                 ));
         }
     }
-
-    onClickFunction() {
+    list(){
+        let depId = $(this).attr('depId');
+        let employeeList = new EmployeeList(depId);
+        location.hash = `/employeeList/${depId}`;
+        employeeList.rendering();
+    }
+    add(){
         const router = new Router();
+        let departmentForm = new DepartmentForm();
+        location.hash = '/addEmployee';
+        router.route(departmentForm);
+    }
+    update(){
         const service = new Services();
-
-        switch ($(this).attr('class')) {
-        case 'add': {
-            let departmentForm = new DepartmentForm();
-            router.route(departmentForm);
-            break;
-        }
-        case 'addButton': {
-            let depId = $(this).attr('depId');
-            let departmentForm = new DepartmentForm();
-            service.getInformation(`/departments/editDepartment/${depId}`,departmentForm,router);
-            break;
-        }
-        case 'listButton': {
-            let depId = $(this).attr('depId');
-            let employeeList = new EmployeeList(depId);
-            employeeList.rendering();
-            break;
-        }
-
-        case 'deleteButton': {
-            let depId = $(this).attr('depId');
-            service.deleteInformation(`/departments/deleteDepartment/${depId}`, new DepartmentList());
-            break;
-        }
-        }
+        const router = new Router();
+        let depId = $(this).attr('depId');
+        let departmentForm = new DepartmentForm();
+        location.hash = '/updateEmployee';
+        service.getInformation(`/departments/editDepartment/${depId}`,departmentForm,router);
+    }
+    delete(){
+        const service = new Services();
+        let depId = $(this).attr('depId');
+        service.deleteInformation(`/departments/deleteDepartment/${depId}`, new DepartmentList());
     }
 }

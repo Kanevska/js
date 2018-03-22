@@ -1,6 +1,6 @@
-import {DepartmentList} from './components/departmentList/DepartmentList';
-
-const departmentList = new DepartmentList();
-location.hash = 'departmentList';
-
-departmentList.rendering();
+import {Router} from './router/Router';
+import {Services} from './services/Services';
+location.hash = '/departmentList';
+const router = new Router();
+const service = new Services();
+service.getInformation('/departments/departmentList',router);

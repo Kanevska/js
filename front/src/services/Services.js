@@ -1,6 +1,8 @@
+import {Router} from '../router/Router';
+
 export class Services{
     constructor(){
-
+        this.router = new Router();
     }
 
     sendInformation(result_id,formName,url,component) {
@@ -23,15 +25,13 @@ export class Services{
         });
     }
 
-    getInformation(url,component,router) {
+    getInformation(url) {
         $.ajax({
             type: 'GET',
             url: url,
             dataType:'json',
             success: function (response) {
-                if(router!=null)
-                    router.route(component,response);
-
+                this.router.route(response);
             },
             error: function () {
                 alert('getting error');
