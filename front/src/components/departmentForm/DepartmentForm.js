@@ -1,6 +1,5 @@
 import {Components} from 'components/Component';
 import {Services} from 'src/services/Services';
-import {DepartmentList} from 'components/departmentList/DepartmentList';
 import {Validator} from 'src/validation/Validator';
 
 
@@ -10,14 +9,14 @@ export class DepartmentForm extends Components {
         super('departmentForm');
     }
 
-    render(object={}) {
+    render(object = {}) {
         let root = '#root';
         let form = '#departmentForm';
         $(root).empty().append($('<h3/>').text('DEPARTMENTS'));
         $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
         $(root).append($('<div/>').attr('class', 'departmentBock')
             .append($('<form/>').attr('name', 'departmentForm').attr('id', 'departmentForm')));
-        if (object) {
+        if (object.id) {
             $(form).append($('<input/>').attr('type', 'hidden').attr('name', 'id').val(object.id));
         }
         $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'departmentName')
@@ -28,7 +27,7 @@ export class DepartmentForm extends Components {
 
         $(form).append($('<input/>').attr('class', 'fields').attr('type', 'text').attr('name', 'address')
             .val(object.address).attr('placeholder', 'Enter department address'));
-        if (object) {
+        if (!object.id) {
             $(form).append($('<input/>').attr('class', 'addButton').attr('type', 'button').val('Add department').on('click', this.save));
         } else {
             $(form).append($('<input/>').attr('depId', object.id).attr('class', 'listButton').attr('type', 'button').val('Update department')
@@ -40,10 +39,8 @@ export class DepartmentForm extends Components {
         const service = new Services();
         const validator = new Validator();
         if (validator.departmentValidate()) {
-            service.sendInformation('#depName', 'departmentForm', '/departments/addDepartment', new DepartmentList());
+            service.sendInformation('#depName', 'departmentForm', '/back/departments/addDepartment', '/departmentList');
         }
-
-
     }
 
 

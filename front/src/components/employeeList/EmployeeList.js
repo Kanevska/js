@@ -1,7 +1,5 @@
 import {Components} from 'components/Component';
-import {Router} from 'src/router/Router';
 import {Services} from 'src/services/Services';
-import {EmployeeForm} from 'components/employeeForm/EmployeeForm';
 
 
 export class EmployeeList extends Components {
@@ -10,16 +8,8 @@ export class EmployeeList extends Components {
     constructor(depId) {
         super('employeeList');
         this.depId = depId;
+        this.service = new Services();
     }
-
-
-    rendering(){
-        const router = new Router();
-        const service = new Services();
-        service.getInformation(`/departments/editDepartment/${this.depId}`,this,router);
-    }
-
-
 
 
     render(object) {
@@ -47,25 +37,17 @@ export class EmployeeList extends Components {
     }
 
     add(){
-        const router = new Router();
-        const service = new Services();
-        let depId = $(this).attr('depId');
-        let employeeForm = new EmployeeForm(depId);
-        service.getInformation('/departments/departmentList',employeeForm,router);
-        router.route(employeeForm);
+        location.hash = '/addEmployee';
+        this.service.controller();
     }
     update(){
-        const router = new Router();
-        const service = new Services();
-        let empId = $(this).attr('empId');
-        let depId = $(this).attr('depId');
-        let employeeForm = new EmployeeForm(depId);
-        service.getInformation(`/employee/editEmployee/${empId}`,employeeForm,router);
+        const empId = $(this).attr('empId');
+        location.hash = `/updateEmployee/${empId}`;
+        this.service.controller();
     }
     delete(){
-        const service = new Services();
-        let empId = $(this).attr('empId');
-        let depId = $(this).attr('depId');
-        service.deleteInformation(`/employee/deleteEmployee/${empId}`, new EmployeeList(depId));
+        const empId = $(this).attr('empId');
+        const depId = $(this).attr('depId');
+        this.service.deleteInformation(`/back/employee/deleteEmployee/${empId}`,`/employeeList/${depId}`);
     }
 }

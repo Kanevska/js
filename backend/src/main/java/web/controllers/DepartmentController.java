@@ -22,7 +22,7 @@ import static metadata.Path.EDIT_DEPARTMENT;
 
 
 @Controller
-@RequestMapping("/departments")
+@RequestMapping("/back")
 public class DepartmentController {
 
     private Converter converter = new Converter();
@@ -33,7 +33,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
 
-    @GetMapping(value = "/departmentList",produces = "application/json; charset=utf-8")
+    @GetMapping(value = "/departments/departmentList",produces = "application/json; charset=utf-8")
     public @ResponseBody String showHomePage() {
         List<Department> departments = this.departmentService.getAllDepartments();
         return converter.departmentListToJSON(departments);
@@ -42,13 +42,13 @@ public class DepartmentController {
 
 
 
-    @GetMapping(value = "/editDepartment/{id}",produces = "application/json; charset=utf-8")
+    @GetMapping(value = "/departments/editDepartment/{id}",produces = "application/json; charset=utf-8")
     public @ResponseBody String editDepartment(@PathVariable("id") Integer id) {
         Department department = departmentService.getDepartmentById(id);
         return converter.departmentToJSON(department);
     }
 
-    @PostMapping(value = "/addDepartment")
+    @PostMapping(value = "/departments/addDepartment")
     public void addDepartment(HttpServletResponse response, DepartmentFormBean departmentFormBean) {
         try {
             departmentService.insertUpdateDepartment(departmentFormBean);
@@ -59,7 +59,7 @@ public class DepartmentController {
     }
 
 
-    @DeleteMapping(value = "/deleteDepartment/{id}")
+    @DeleteMapping(value = "/departments/deleteDepartment/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteDepartment(@PathVariable("id") Integer id,HttpServletResponse response) {
         try {

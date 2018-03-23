@@ -15,8 +15,7 @@ module.exports = {
             aggregateTimeout: 100,
         },
         proxy:{
-            '/departments/*':'http://localhost:8082',
-            '/employee/*': 'http://localhost:8082'
+            '/back/*': 'http://localhost:8082'
         }
     },
     module: {

@@ -1,6 +1,5 @@
 import {Components} from 'components/Component';
 import {Services} from 'src/services/Services';
-import {EmployeeList} from 'components/employeeList/EmployeeList';
 import {Validator} from 'src/validation/Validator';
 
 export class EmployeeForm extends Components {
@@ -13,7 +12,19 @@ export class EmployeeForm extends Components {
     render(object) {
         const root = '#root';
         const form = '#employeeForm';
-        object.dep = {};
+        this.mainContent(object, root, form);
+        this.depList(object);
+
+    }
+    depList(object)
+    {
+        for (let i = 0; i <object['department_array'].length; i++) {
+            $('#department').append($('<option/>').attr('value', object['department_array'][i].id)
+                .text(object['department_array'][i].departmentName));
+        }
+    }
+    mainContent (object={}, root, form)
+    {
         $(root).empty().append($('<h3/>').text('ADD/UPDATE EMPLOYEE'));
         $(root).append($('<a/>').attr('class', 'home').attr('href', '/').append($('<span>').html('&#x2302;')));
         $(root).append($('<div/>').attr('class', 'blocksEmployee')
@@ -41,13 +52,7 @@ export class EmployeeForm extends Components {
 
         $(form).append($('<select/>').attr('class', 'fields').attr('id', 'department').attr('name', 'departmentId')
             .attr('placeholder', 'Enter your salary'));
-        const depList = (obj) => {
-            for (let i = 0; i < obj['department_array'].length; i++) {
-                $('#department').append($('<option/>').attr('value', obj['department_array'][i].id)
-                    .text(obj['department_array'][i].departmentName));
-            }
-        };
-        depList(object);
+
         if (!object.id) {
             $(form).append($('<input/>').attr('class', 'addButton').attr('type', 'button').val('Add department').on('click', this.save));
         } else {
@@ -60,7 +65,7 @@ export class EmployeeForm extends Components {
         const depId = $('#department').val();
         const validator = new Validator();
         if (validator.employeeValidate()) {
-            service.sendInformation('#empMail', 'employeeForm', '/employee/addEmployee', new EmployeeList(depId));
+            service.sendInformation('#empMail', 'employeeForm', '/back/employee/addEmployee', `/employeeList/${depId}`);
         }
     }
 

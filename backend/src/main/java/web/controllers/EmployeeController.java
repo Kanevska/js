@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("/back")
 public class EmployeeController {
 
     private Converter converter = new Converter();
@@ -38,7 +38,7 @@ public class EmployeeController {
     private DepartmentService departmentService;
 
 
-    @GetMapping(value = "/editEmployee/{id}", produces = "application/json; charset=utf-8")
+    @GetMapping(value = "/employee/editEmployee/{id}", produces = "application/json; charset=utf-8")
     public @ResponseBody
     String editDepartment(@PathVariable("id") Integer id) {
         Employee employee = employeeService.getEmployeeById(id);
@@ -48,7 +48,7 @@ public class EmployeeController {
         return json;
     }
 
-    @DeleteMapping(value = "/deleteEmployee/{id}")
+    @DeleteMapping(value = "/employee/deleteEmployee/{id}")
     public void deleteEmployee(@PathVariable("id") Integer id, HttpServletResponse response) {
 
         try {
@@ -64,14 +64,14 @@ public class EmployeeController {
     }
 
 
-    @GetMapping(value = "/employeeList/{id}", produces = "application/json; charset=utf-8")
+    @GetMapping(value = "/employee/employeeList/{id}", produces = "application/json; charset=utf-8")
     public @ResponseBody
     String showHomePage(@PathVariable("id") Integer id) {
         List<Employee> employees = employeeService.getEmployeeListByDepartmentId(id);
         return converter.employeeListToJSON(employees);
     }
 
-    @PostMapping(value = "/addEmployee")
+    @PostMapping(value = "/employee/addEmployee")
     public void addEmployee(EmployeeFormBean employeeFormBean, BindingResult bindingResult, HttpServletResponse response) {
 
         if (bindingResult.hasErrors()) {
