@@ -1,31 +1,20 @@
 const webpack = require('webpack');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: './src/main.js',
     output: {
-        filename: 'bundle.js'
-    },
-    devtool: 'source-map',
-    watch:true,
-    devServer:{
-        host:'localhost',
-        port:8080,
-        watchOptions: {
-            aggregateTimeout: 100,
-        },
-        proxy:{
-            '/back/*': 'http://localhost:8082'
-        }
+        filename: '[hash].bundle.js'
     },
     module: {
         rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
+            {test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
             },
             {
                 test: /\.js$/,
@@ -51,6 +40,11 @@ module.exports = {
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
             'window.$': 'jquery'
-        })
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.ejs',
+        }),
+        new UglifyJsPlugin(),
+        new ExtractTextPlugin('./[hash]style.css')
     ]
 };

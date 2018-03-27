@@ -4,10 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack-dev-server src/main.js --watch-poll",
-    "build:prod": "webpack -p",
+    "start:dev": "webpack-dev-server --open --watch-poll --config webpack.config.dev.js",
+    "build:prod": "webpack -p --config webpack.config.prod.js",
     "start": "npm run start:dev"
   },
   "author": "",
@@ -19,11 +18,16 @@
     "css-loader": "^0.28.10",
     "eslint": "^4.19.0",
     "eslint-loader": "^2.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.1.0",
+    "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.9",
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
+    "css-loader": "^0.28.11",
     "dev": "^0.1.3",
     "jquery": "^3.3.1",
     "jquery-validation": "^1.17.0"

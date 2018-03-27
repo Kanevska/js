@@ -12,14 +12,14 @@ export class Services{
             dataType: 'json',
             data: jQuery('#' + formName).serialize(),
             statusCode: {
-                200: function() {
+                200: () => {
                     location.hash=setUrl;
                     new Services().controller();
                 },
-                409: function() {
+                409: () => {
                     $(result_id).append('already exists');
                 },
-                500:function() {
+                500:() => {
                     alert('error');
                 },
             }
@@ -27,15 +27,14 @@ export class Services{
     }
 
     getInformation(url) {
-        const router = new Router();
         $.ajax({
             type: 'GET',
             url: url,
             dataType:'json',
-            success: function (response) {
-                router.route(response);
+            success: (response) => {
+                new Router().route(response);
             },
-            error: function () {
+            error: () => {
                 alert('getting error');
             }
         });
@@ -45,11 +44,11 @@ export class Services{
             url: url,
             type: 'DELETE',
             statusCode: {
-                204: function() {
+                204: () => {
                     location.hash=setUrl;
                     new Services().controller();
                 },
-                409: function() {
+                409: () => {
                     alert('error');
                 }
             }
@@ -65,29 +64,31 @@ export class Services{
         action[url](hash);
     }
 }
+const service = new Services();
+const router = new Router();
 const action = {
     '/employeeList': (url) => {
         const depId = url.substring(url.indexOf('/',2)+1);
-        new Services().getInformation(`/back/departments/editDepartment/${depId}`);
+        service.getInformation(`/back/departments/editDepartment/${depId}`);
     },
     '/departmentList': () => {
-        new Services().getInformation('/back/departments/departmentList');
+        service.getInformation('/back/departments/departmentList');
     },
     '/addDepartment': () => {
-        new Router().route();
+        router.route();
     },
     '/updateDepartment': (url) => {
         const depId = url.substring(url.indexOf('/',2)+1);
-        new Services().getInformation(`/back/departments/editDepartment/${depId}`);
+        service.getInformation(`/back/departments/editDepartment/${depId}`);
     },
     '/updateEmployee': (url) => {
         const empId = url.substring(url.indexOf('/',2)+1);
-        new Services().getInformation(`/back/employee/editEmployee/${empId}`);
+        service.getInformation(`/back/employee/editEmployee/${empId}`);
     },
     '/addEmployee': () => {
-        new Services().getInformation('/back/departments/departmentList');
+        service.getInformation('/back/departments/departmentList');
     },
     default: () => {
-        new Router().route();
+        router.route();
     }
 };
